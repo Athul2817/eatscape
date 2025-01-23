@@ -67,7 +67,7 @@
         <form method="post" action="/update_login">
             {% csrf_token %}
             <div class="form-group">
-                <label for="username">Username:</label>
+                <label for="username">Username: </label>
                 <input type="text" id="username" name="username" value="{{ authenticated_user.username }}" required>
             </div>
             <div class="form-group">
