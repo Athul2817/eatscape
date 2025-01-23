@@ -1,0 +1,162 @@
+{% extends 'base1.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Listing</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg');
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar .title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .navbar .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #ffcc00;
+        }
+
+        .dynamic-section {
+            margin-top: 20px;
+        }
+
+        .dynamic-section .dynamic-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .dynamic-section .dynamic-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+
+        .dynamic-section .dynamic-item .details {
+            flex-grow: 1;
+        }
+
+        .dynamic-section .dynamic-item .details .title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .cart-button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cart-button a {
+            font-size: 20px;
+            color: #007bff;
+            transition: transform 0.2s ease, color 0.2s ease;
+        }
+
+        .cart-button a:hover {
+            transform: scale(1.2);
+            color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="title">Menu Listings</div>
+        <div class="nav-links">
+           
+            <!-- <a href="{% url 'cart' %}">View Cart</a> -->
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Dynamic Section -->
+        {% if menu_new %}
+        <div class="dynamic-section">
+            {% for item in menu_new %}
+            <div class="dynamic-item d-flex align-items-center justify-content-between">
+                <!-- Image Section -->
+                <div class="image-and-details d-flex align-items-center">
+                    {% if item.image1 %}
+                    <img class="item-image" src="{{ item.image1.url }}" alt="{{ item.menuItemName }}">
+                    {% endif %}
+                    <div class="details">
+                        <p class="title">{{ item.menuItemName }}</p>
+                        <p>{{ item.description }}</p>
+                        <p>Price: ₹{{ item.price }}</p>
+                        <p>Category: {{ item.category }}</p>
+                    </div>
+                </div>
+
+                <div>
+                    <a class="text-decoration-none" href="{% url 'delete_menu' item.id %}">
+                        <i class="fa-solid fa-trash"></i>
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+    </div>
+</body>
+
+</html>
+{% endblock content %}
